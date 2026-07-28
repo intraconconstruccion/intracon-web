@@ -853,9 +853,10 @@
         await ytApiReadyPromise;
         modalYtPlayer = new YT.Player('modalYtTarget', {
           videoId: youtubeId,
-          playerVars: { autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1, controls: 0, disablekb: 1, iv_load_policy: 3, fs: 0 },
+          playerVars: { autoplay: 1, mute: 1, rel: 0, modestbranding: 1, playsinline: 1, controls: 0, disablekb: 1, iv_load_policy: 3, fs: 0 },
           events: {
             onReady: function(e){
+              e.target.mute();
               // insistimos varias veces: si YouTube todavia no cargo la lista de calidades
               // disponibles, el primer pedido se pierde en silencio
               e.target.setPlaybackQuality('hd1080');
