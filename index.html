@@ -381,17 +381,7 @@
     font-family:'Poppins'; font-size:0.85rem; letter-spacing:0.1em; color:rgba(255,255,255,0.35); text-transform:uppercase;
     box-shadow:0 20px 60px rgba(0,0,0,0.5);
   }
-  .video-modal-player iframe, .video-modal-player video{width:100%; height:100%; border:none; border-radius:8px; pointer-events:none;}
-  .video-custom-controls{
-    display:flex; gap:10px; justify-content:center; margin-top:14px;
-  }
-  .video-custom-btn{
-    width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.3);
-    background:rgba(255,255,255,0.08); color:var(--white);
-    display:flex; align-items:center; justify-content:center; cursor:pointer;
-    transition:background .2s;
-  }
-  .video-custom-btn:hover{background:rgba(40,155,56,0.5);}
+  .video-modal-player iframe, .video-modal-player video{width:100%; height:100%; border:none; border-radius:8px;}
   .video-modal-info{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:8px; margin-top:18px; color:var(--white);}
   .video-modal-info strong{font-family:'Poppins'; font-size:1.1rem;}
   .video-modal-info span{color:rgba(255,255,255,0.6); font-size:0.9rem;}
@@ -773,15 +763,6 @@
     <button class="video-modal-close" onclick="closeVideoModal()" aria-label="Cerrar">✕</button>
     <div class="video-modal-inner">
       <div class="video-modal-player" id="videoModalPlayer">[ ACÁ VA EL VIDEO AÉREO EN 4K ]</div>
-      <div class="video-custom-controls">
-        <button class="video-custom-btn" id="videoPlayPauseBtn" onclick="toggleModalPlayPause()" aria-label="Reproducir o pausar">
-          <svg id="iconPlay" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          <svg id="iconPause" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="display:none;"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-        </button>
-        <button class="video-custom-btn" onclick="toggleModalFullscreen()" aria-label="Pantalla completa">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
-        </button>
-      </div>
       <div class="video-modal-info">
         <strong id="videoModalTitle">Casa Los Aromos</strong>
         <span id="videoModalSub">320 m²</span>
@@ -872,18 +853,16 @@
         await ytApiReadyPromise;
         modalYtPlayer = new YT.Player('modalYtTarget', {
           videoId: youtubeId,
-          playerVars: { autoplay: 1, mute: 1, rel: 0, modestbranding: 1, playsinline: 1, controls: 0, disablekb: 1, iv_load_policy: 3, fs: 0 },
+          playerVars: { autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1, controls: 1, iv_load_policy: 3, fs: 1 },
           events: {
             onReady: function(e){
-              e.target.mute();
-              updateCustomPlayIcon(true);
               // insistimos varias veces: si YouTube todavia no cargo la lista de calidades
               // disponibles, el primer pedido se pierde en silencio
               e.target.setPlaybackQuality('hd1080');
               e.target.playVideo();
-              setTimeout(() => { try { e.target.setPlaybackQuality('hd1080'); e.target.mute(); } catch(err){} }, 400);
-              setTimeout(() => { try { e.target.setPlaybackQuality('hd1080'); e.target.mute(); } catch(err){} }, 1200);
-              setTimeout(() => { try { e.target.setPlaybackQuality('hd1080'); e.target.mute(); } catch(err){} }, 2500);
+              setTimeout(() => { try { e.target.setPlaybackQuality('hd1080'); } catch(err){} }, 400);
+              setTimeout(() => { try { e.target.setPlaybackQuality('hd1080'); } catch(err){} }, 1200);
+              setTimeout(() => { try { e.target.setPlaybackQuality('hd1080'); } catch(err){} }, 2500);
             },
             onPlaybackQualityChange: function(e){
               // si YouTube la baja por debajo de 1080p, insistimos para que vuelva a 1080p
@@ -893,9 +872,6 @@
               if (current !== -1 && current < target) {
                 e.target.setPlaybackQuality('hd1080');
               }
-            },
-            onStateChange: function(e){
-              updateCustomPlayIcon(e.data === YT.PlayerState.PLAYING);
             }
           }
         });
@@ -907,28 +883,6 @@
       }
       videoModal.classList.add('open');
       document.body.style.overflow = 'hidden';
-    };
-    function updateCustomPlayIcon(isPlaying){
-      const iconPlay = document.getElementById('iconPlay');
-      const iconPause = document.getElementById('iconPause');
-      if (!iconPlay || !iconPause) return;
-      iconPlay.style.display = isPlaying ? 'none' : 'block';
-      iconPause.style.display = isPlaying ? 'block' : 'none';
-    }
-    window.toggleModalPlayPause = function(){
-      if (!modalYtPlayer || typeof modalYtPlayer.getPlayerState !== 'function') return;
-      const state = modalYtPlayer.getPlayerState();
-      if (state === YT.PlayerState.PLAYING) {
-        modalYtPlayer.pauseVideo();
-      } else {
-        modalYtPlayer.playVideo();
-      }
-    };
-    window.toggleModalFullscreen = function(){
-      const iframe = document.querySelector('#modalYtTarget iframe') || document.getElementById('modalYtTarget');
-      if (!iframe) return;
-      if (iframe.requestFullscreen) iframe.requestFullscreen();
-      else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
     };
     window.closeVideoModal = function(){
       videoModal.classList.remove('open');
