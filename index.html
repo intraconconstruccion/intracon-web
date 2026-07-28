@@ -834,6 +834,7 @@
     const videoModalSub = document.getElementById('videoModalSub');
     const videoModalPlayer = document.getElementById('videoModalPlayer');
     let modalYtPlayer = null;
+    let modalMuteWatcher = null;
     let ytApiReadyPromiseResolve;
     const ytApiReadyPromise = new Promise((resolve) => { ytApiReadyPromiseResolve = resolve; });
 
@@ -853,9 +854,19 @@
         await ytApiReadyPromise;
         modalYtPlayer = new YT.Player('modalYtTarget', {
           videoId: youtubeId,
-          playerVars: { autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1, controls: 1, iv_load_policy: 3, fs: 1 },
+          playerVars: { autoplay: 1, mute: 1, rel: 0, modestbranding: 1, playsinline: 1, controls: 1, iv_load_policy: 3, fs: 1 },
           events: {
             onReady: function(e){
+              e.target.mute();
+              // vigilante: si alguien toca el boton de sonido de YouTube, lo volvemos a mutear al instante
+              if (modalMuteWatcher) clearInterval(modalMuteWatcher);
+              modalMuteWatcher = setInterval(() => {
+                try {
+                  if (modalYtPlayer && typeof modalYtPlayer.isMuted === 'function' && !modalYtPlayer.isMuted()) {
+                    modalYtPlayer.mute();
+                  }
+                } catch(err){}
+              }, 400);
               // insistimos varias veces: si YouTube todavia no cargo la lista de calidades
               // disponibles, el primer pedido se pierde en silencio
               e.target.setPlaybackQuality('hd1080');
@@ -887,6 +898,7 @@
     window.closeVideoModal = function(){
       videoModal.classList.remove('open');
       document.body.style.overflow = '';
+      if (modalMuteWatcher) { clearInterval(modalMuteWatcher); modalMuteWatcher = null; }
       if (modalYtPlayer && typeof modalYtPlayer.destroy === 'function') {
         modalYtPlayer.destroy();
         modalYtPlayer = null;
