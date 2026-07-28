@@ -381,7 +381,7 @@
     font-family:'Poppins'; font-size:0.85rem; letter-spacing:0.1em; color:rgba(255,255,255,0.35); text-transform:uppercase;
     box-shadow:0 20px 60px rgba(0,0,0,0.5);
   }
-  .video-modal-player iframe, .video-modal-player video{width:100%; height:100%; border:none; border-radius:8px; pointer-events:none;}
+  .video-modal-player iframe, .video-modal-player video{width:100%; height:100%; border:none; border-radius:8px;}
   .video-modal-info{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:8px; margin-top:18px; color:var(--white);}
   .video-modal-info strong{font-family:'Poppins'; font-size:1.1rem;}
   .video-modal-info span{color:rgba(255,255,255,0.6); font-size:0.9rem;}
@@ -853,10 +853,9 @@
         await ytApiReadyPromise;
         modalYtPlayer = new YT.Player('modalYtTarget', {
           videoId: youtubeId,
-          playerVars: { autoplay: 1, mute: 1, rel: 0, modestbranding: 1, playsinline: 1, controls: 0, disablekb: 1, iv_load_policy: 3, fs: 0 },
+          playerVars: { autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1, controls: 1, iv_load_policy: 3, fs: 1 },
           events: {
             onReady: function(e){
-              e.target.mute();
               // insistimos varias veces: si YouTube todavia no cargo la lista de calidades
               // disponibles, el primer pedido se pierde en silencio
               e.target.setPlaybackQuality('hd1080');
