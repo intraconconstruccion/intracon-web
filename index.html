@@ -90,6 +90,9 @@
     display:flex; flex-direction:column; gap:0;
     max-height:0; overflow:hidden; transition:max-height .3s ease;
   }
+  @media (max-width:860px){
+    .nav-mobile-panel{top:88px;}
+  }
   .nav-mobile-panel.open{max-height:320px;}
   .nav-mobile-panel a{color:rgba(255,255,255,0.85); padding:16px 26px; font-size:0.95rem; border-bottom:1px solid rgba(255,255,255,0.06);}
   .nav-mobile-panel .nav-cta{margin:16px 26px; width:fit-content;}
@@ -352,7 +355,7 @@
     width:64px; height:64px; border-radius:50%; background:rgba(255,255,255,0.15);
     border:2px solid rgba(255,255,255,0.7); backdrop-filter:blur(2px);
     display:flex; align-items:center; justify-content:center;
-    color:var(--white); font-size:1.3rem; padding-left:4px;
+    color:var(--white); padding-left:3px;
     transition:transform .2s, background .2s;
   }
   .aerial-card:hover .aerial-play{transform:translate(-50%,-50%) scale(1.1); background:rgba(40,155,56,0.55);}
@@ -714,12 +717,12 @@
       </div>
     </div>
     <div class="aerial-grid reveal-group">
-      <div class="aerial-card" onclick="openVideoModal('Casa de Hormigón Armado y Piedra','714 m²',null,'qD4f-ByQBLA')" style="background-image:url(https://img.youtube.com/vi/qD4f-ByQBLA/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play">▶</div><div class="aerial-card-label">Casa de Hormigón Armado y Piedra<small>714 m²</small></div></div>
-      <div class="aerial-card" onclick="openVideoModal('Casa de Mampostería y Hormigón Armado','234 m²',null,'dNGAdH6lV-8')" style="background-image:url(https://img.youtube.com/vi/dNGAdH6lV-8/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play">▶</div><div class="aerial-card-label">Casa de Mampostería y Hormigón Armado<small>234 m²</small></div></div>
-      <div class="aerial-card" onclick="openVideoModal('Casa de Ladrillo Visto, Madera y Chapa','268 m²',null,'HlXbGvpBVlU')" style="background-image:url(https://img.youtube.com/vi/HlXbGvpBVlU/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play">▶</div><div class="aerial-card-label">Casa de Ladrillo Visto, Madera y Chapa<small>268 m²</small></div></div>
-      <div class="aerial-card" onclick="openVideoModal('Casa de Mampostería, Madera y Chapa','312 m²',null,'RRSsFxDg5aQ')" style="background-image:url(https://img.youtube.com/vi/RRSsFxDg5aQ/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play">▶</div><div class="aerial-card-label">Casa de Mampostería, Madera y Chapa<small>312 m²</small></div></div>
-      <div class="aerial-card" onclick="openVideoModal('Casa de Ladrillo Visto, Madera y Chapa','157 m²',null,'tzwqE1iBp1A')" style="background-image:url(https://img.youtube.com/vi/tzwqE1iBp1A/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play">▶</div><div class="aerial-card-label">Casa de Ladrillo Visto, Madera y Chapa<small>157 m²</small></div></div>
-      <div class="aerial-card" onclick="openVideoModal('Casa de Mampostería, Hormigón Armado, Grandes Luces Vigas','356 m²',null,'VTgONMnOxv8')" style="background-image:url(https://img.youtube.com/vi/VTgONMnOxv8/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play">▶</div><div class="aerial-card-label">Casa de Mampostería, Hormigón Armado, Grandes Luces Vigas<small>356 m²</small></div></div>
+      <div class="aerial-card" onclick="openVideoModal('Casa de Hormigón Armado y Piedra','714 m²',null,'qD4f-ByQBLA')" style="background-image:url(https://img.youtube.com/vi/qD4f-ByQBLA/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><div class="aerial-card-label">Casa de Hormigón Armado y Piedra<small>714 m²</small></div></div>
+      <div class="aerial-card" onclick="openVideoModal('Casa de Mampostería y Hormigón Armado','234 m²',null,'dNGAdH6lV-8')" style="background-image:url(https://img.youtube.com/vi/dNGAdH6lV-8/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><div class="aerial-card-label">Casa de Mampostería y Hormigón Armado<small>234 m²</small></div></div>
+      <div class="aerial-card" onclick="openVideoModal('Casa de Ladrillo Visto, Madera y Chapa','268 m²',null,'HlXbGvpBVlU')" style="background-image:url(https://img.youtube.com/vi/HlXbGvpBVlU/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><div class="aerial-card-label">Casa de Ladrillo Visto, Madera y Chapa<small>268 m²</small></div></div>
+      <div class="aerial-card" onclick="openVideoModal('Casa de Mampostería, Madera y Chapa','312 m²',null,'RRSsFxDg5aQ')" style="background-image:url(https://img.youtube.com/vi/RRSsFxDg5aQ/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><div class="aerial-card-label">Casa de Mampostería, Madera y Chapa<small>312 m²</small></div></div>
+      <div class="aerial-card" onclick="openVideoModal('Casa de Ladrillo Visto, Madera y Chapa','157 m²',null,'tzwqE1iBp1A')" style="background-image:url(https://img.youtube.com/vi/tzwqE1iBp1A/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><div class="aerial-card-label">Casa de Ladrillo Visto, Madera y Chapa<small>157 m²</small></div></div>
+      <div class="aerial-card" onclick="openVideoModal('Casa de Mampostería, Hormigón Armado, Grandes Luces Vigas','356 m²',null,'VTgONMnOxv8')" style="background-image:url(https://img.youtube.com/vi/VTgONMnOxv8/hqdefault.jpg); background-size:cover; background-position:center;"><div class="aerial-play"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><div class="aerial-card-label">Casa de Mampostería, Hormigón Armado, Grandes Luces Vigas<small>356 m²</small></div></div>
     </div>
   </section>
 
