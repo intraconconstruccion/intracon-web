@@ -560,6 +560,15 @@
   @media (max-width:400px){
     .hero-title{font-size:2rem;}
   }
+  @media (orientation:landscape) and (max-height:600px){
+    .hero{padding-top:70px; align-items:center;}
+    .hero-content{padding-top:10px; padding-bottom:20px;}
+    .hero-content img{height:70px!important; margin-bottom:14px!important;}
+    .hero-title{font-size:1.6rem; margin-bottom:10px;}
+    .hero-sub{margin-bottom:14px; font-size:0.9rem;}
+    .hero-eyebrow{margin-bottom:8px;}
+    .scroll-cue{display:none;}
+  }
 </style>
 </head>
 <body>
@@ -966,6 +975,23 @@
       }, { threshold: 0.3 });
       sistemaVideoObserver.observe(sistemaVideoEl);
     }
+
+    // Refuerzo extra para los videos propios (hero + sistema): si el navegador los pausa
+    // solo por cualquier motivo (ahorro de batería, politica de autoplay, etc.), los volvemos
+    // a poner en play automaticamente, sin que la persona tenga que tocar nada.
+    const heroVideoEl = document.querySelector('.hero-bg-video');
+    [heroVideoEl, sistemaVideoEl].forEach(vid => {
+      if (!vid) return;
+      vid.play().catch(() => {});
+      vid.addEventListener('pause', () => {
+        setTimeout(() => { vid.play().catch(() => {}); }, 300);
+      });
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        [heroVideoEl, sistemaVideoEl].forEach(vid => { if (vid) vid.play().catch(() => {}); });
+      }
+    });
   </script>
 </body>
 </html>
